@@ -1,0 +1,39 @@
+.column {
+  width: 250px;
+  background-color: #d3dae6;
+  border-radius: 10px;
+  border: 1px solid #d3dae6;
+}
+.columnTop {
+  background: #fff;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  font-size: large;
+  font-weight: bold;
+  text-align: center;
+}
+.columnBody {
+  background-color: #d3dae6;
+  padding: 10px;
+}
+.issueCard {
+  cursor: pointer;
+}
+.add {
+  cursor: pointer;
+  margin: 0 10px;
+  padding: 10px;
+  opacity: 0.7;
+  margin-bottom: 5px;
+}
+.add:hover {
+  background-color: #fff;
+  border-radius: 7px;
+  opacity: 1;
+}
+.icon {
+  margin-left: 1rem;
+}

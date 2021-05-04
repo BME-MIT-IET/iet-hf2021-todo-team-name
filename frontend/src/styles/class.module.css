@@ -1,0 +1,9 @@
+.cardBody {
+  cursor: pointer;
+}
+.cardBody:hover {
+  /* background-color: rgb(235, 235, 235); */
+  -webkit-box-shadow: 10px 10px 19px 0px rgba(0, 0, 0, 0.24);
+  -moz-box-shadow: 10px 10px 19px 0px rgba(0, 0, 0, 0.24);
+  box-shadow: 10px 10px 19px 0px rgba(0, 0, 0, 0.24);
+}

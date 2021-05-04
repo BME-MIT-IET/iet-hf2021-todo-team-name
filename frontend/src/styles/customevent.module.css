@@ -1,0 +1,15 @@
+.container {
+  cursor: pointer;
+  border-radius: 10px;
+  -webkit-box-shadow: 10px 10px 19px 0px rgba(0, 0, 0, 0.32);
+  -moz-box-shadow: 10px 10px 19px 0px rgba(0, 0, 0, 0.32);
+  box-shadow: 10px 10px 19px 0px rgba(0, 0, 0, 0.32);
+}
+.container:hover {
+  background-color: #006de2 !important;
+}
+.card {
+  height: 100%;
+  background-color: #006de2 !important;
+  color: #ffffff !important;
+}
