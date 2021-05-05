@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deadline", "Deadline\Deadline.csproj", "{8AEE2197-8206-4657-A51B-02007541ABEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deadline", "Deadline\Deadline.csproj", "{8AEE2197-8206-4657-A51B-02007541ABEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web-api-tests", "web-api-tests\web-api-tests.csproj", "{670E868B-EB64-4AE3-80EF-B6B7302E6C74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{8AEE2197-8206-4657-A51B-02007541ABEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AEE2197-8206-4657-A51B-02007541ABEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AEE2197-8206-4657-A51B-02007541ABEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{670E868B-EB64-4AE3-80EF-B6B7302E6C74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{670E868B-EB64-4AE3-80EF-B6B7302E6C74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{670E868B-EB64-4AE3-80EF-B6B7302E6C74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{670E868B-EB64-4AE3-80EF-B6B7302E6C74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
