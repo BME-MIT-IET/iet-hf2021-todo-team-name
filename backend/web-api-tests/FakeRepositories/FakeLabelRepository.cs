@@ -42,7 +42,6 @@ namespace web_api_tests.FakeRepositories
 
             labels.Remove(existing);
             return labelid;
-
         }
 
         public async Task<List<Label>> GetLabels(string userid)

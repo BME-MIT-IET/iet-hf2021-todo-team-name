@@ -18,9 +18,10 @@ namespace web_api_tests
         {
             //Arrange
             repository = new FakeLabelRepository();
-            controller = new LabelController(repository);
-
-            controller.ControllerContext = new ControllerContext();
+            controller = new LabelController(repository)
+            {
+                ControllerContext = new ControllerContext()
+            };
             controller.ControllerContext.HttpContext = new DefaultHttpContext();
             controller.ControllerContext.HttpContext.Items.Add("UserID", "0");
         }
