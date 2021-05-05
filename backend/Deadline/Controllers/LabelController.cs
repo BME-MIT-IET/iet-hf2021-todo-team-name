@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Deadline.DB;
 using Deadline.DB.IRepositories;
 using Deadline.Entities;
 using Microsoft.AspNetCore.Authorization;

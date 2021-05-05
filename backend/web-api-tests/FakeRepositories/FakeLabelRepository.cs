@@ -23,6 +23,10 @@ namespace web_api_tests.FakeRepositories
 
         public async Task<Label> AddLabel(Label label, string userid)
         {
+            var labelExisting = labels.FirstOrDefault(item => item.name == label.name);
+            if (labelExisting != null)
+                return null;
+
             label.ID = Guid.NewGuid().ToString();
             label.userid = userid;
             labels.Add(label);
@@ -31,10 +35,14 @@ namespace web_api_tests.FakeRepositories
 
         public async Task<string> Delete(string labelid, string userid)
         {
-            var existing = labels.First(l => l.ID == labelid && l.userid == userid);
-            labels.Remove(existing);
+            var existing = labels.FirstOrDefault(l => l.ID == labelid && l.userid == userid);
 
+            if (existing == null)
+                return "-1";
+
+            labels.Remove(existing);
             return labelid;
+
         }
 
         public async Task<List<Label>> GetLabels(string userid)
