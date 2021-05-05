@@ -11,6 +11,7 @@ using Deadline.DB;
 using System.Text.Json;
 using Deadline.API;
 using Microsoft.AspNetCore.Authorization;
+using Deadline.DB.IRepositories;
 
 namespace Deadline.Controllers
 {
@@ -19,8 +20,8 @@ namespace Deadline.Controllers
     [ApiController]
     public class ColumnController : ControllerBase
     {
-        private ColumnRepository cr;
-        public ColumnController(ColumnRepository columnRepository)
+        private IColumnRepository cr;
+        public ColumnController(IColumnRepository columnRepository)
         {
             cr = columnRepository;
         }

@@ -4,12 +4,13 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Deadline.API;
+using Deadline.DB.IRepositories;
 using Deadline.Entities;
 using MongoDB.Driver;
 
 namespace Deadline.DB
 {
-    public class IssueRepository
+    public class IssueRepository : IIssueRepository
     {
         private readonly Database db;
         public IssueRepository(Database db) => this.db = db;

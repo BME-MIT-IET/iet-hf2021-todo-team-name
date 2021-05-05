@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
+using Deadline.DB.IRepositories;
 
 namespace Deadline.DB
 {
-    public class LabelRepository
+    public class LabelRepository : ILabelRepository
     {
         private readonly Database db;
         public LabelRepository(Database db) => this.db = db;

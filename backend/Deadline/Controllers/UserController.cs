@@ -8,6 +8,7 @@ using Deadline.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Deadline.API;
+using Deadline.DB.IRepositories;
 
 namespace Deadline.Controllers
 {
@@ -15,8 +16,8 @@ namespace Deadline.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private UserRepository ur;
-        public UserController(UserRepository ur) => this.ur = ur;
+        private IUserRepository ur;
+        public UserController(IUserRepository ur) => this.ur = ur;
 
         [HttpPost("authenticate")]
         public async Task<ActionResult> Authenticate(AuthenticateRequest model)

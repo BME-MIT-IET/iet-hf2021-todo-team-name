@@ -10,6 +10,7 @@ using MongoDB.Driver;
 using Deadline.DB;
 using Deadline.API;
 using Microsoft.AspNetCore.Authorization;
+using Deadline.DB.IRepositories;
 
 namespace Deadline.Controllers
     {
@@ -18,8 +19,8 @@ namespace Deadline.Controllers
         [ApiController]
         public class IssueController : ControllerBase
         {
-            private readonly IssueRepository ir;
-            public IssueController(IssueRepository ir)
+            private readonly IIssueRepository ir;
+            public IssueController(IIssueRepository ir)
             {
                 this.ir = ir;
             }

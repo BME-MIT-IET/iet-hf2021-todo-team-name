@@ -14,10 +14,11 @@ using Deadline.Models;
 using System.Security.Cryptography;
 using Deadline.API;
 using Microsoft.Extensions.Configuration;
+using Deadline.DB.IRepositories;
 
 namespace Deadline.DB
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         private Database db;
         IConfiguration config;

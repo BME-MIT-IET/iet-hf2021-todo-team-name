@@ -9,6 +9,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using Microsoft.AspNetCore.Authorization;
 using Deadline.DB;
+using Deadline.DB.IRepositories;
 
 namespace Deadline.Controllers
 {
@@ -17,9 +18,9 @@ namespace Deadline.Controllers
     [ApiController]
     public class ClassController : ControllerBase
     {
-        private readonly ClassRepository cr;
+        private readonly IClassRepository cr;
         private IMongoCollection<Class> collection;
-        public ClassController(ClassRepository cr)
+        public ClassController(IClassRepository cr)
         {
             var client = new MongoClient("mongodb://localhost:27017");
             var db = client.GetDatabase("deadline");

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Deadline.API;
 using Deadline.DB;
+using Deadline.DB.IRepositories;
 using Deadline.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -16,8 +17,8 @@ namespace Deadline.Controllers
     [ApiController]
     public class WorkspaceController : ControllerBase
     {
-        private WorkspaceRepository wr;
-        public WorkspaceController(WorkspaceRepository wr) => this.wr = wr;
+        private IWorkspaceRepository wr;
+        public WorkspaceController(IWorkspaceRepository wr) => this.wr = wr;
         [HttpPost]
         public async Task<ActionResult<ClientWorkspace>> Create([FromBody] string name)
         {

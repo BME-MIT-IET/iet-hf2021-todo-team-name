@@ -1,4 +1,5 @@
-﻿using Deadline.Entities;
+﻿using Deadline.DB.IRepositories;
+using Deadline.Entities;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using MongoDB.Driver;
 using System;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Deadline.DB
 {
-    public class ClassRepository
+    public class ClassRepository : IClassRepository
     {
         private readonly Database db;
         public ClassRepository(Database db) => this.db = db;
