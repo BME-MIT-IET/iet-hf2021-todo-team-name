@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -74,10 +73,13 @@ namespace web_api_tests.FakeRepositories
         public async Task<List<ClientIssue>> Search(string userid, string query, CancellationToken cancellationToken = default)
         {
             string lower = query.ToLower();
-            var res = issues.FindAll(item => item.userID == userid
-                                                && (item.title.ToLower().Contains(lower)
-                                                || item.body.ToLower().Contains(lower)))
-                                                .ToList();
+            var res = issues.FindAll(item =>
+                                    item.userID == userid
+                                    && (
+                                        item.title.ToLower().Contains(lower)
+                                        ||
+                                        item.body.ToLower().Contains(lower)
+                                    )).ToList();
             
             return ToClientList(res);
         }

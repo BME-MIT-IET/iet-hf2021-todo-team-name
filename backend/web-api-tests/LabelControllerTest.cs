@@ -41,7 +41,7 @@ namespace web_api_tests
         public void Delete_ExistingIdPassed_RemovesItem()
         {
             // Act
-            var labelId = controller.DeleteLabel("1").Result;
+            _ = controller.DeleteLabel("1").Result;
 
             // Assert
             var result = controller.GetLabels().Result;
@@ -50,10 +50,10 @@ namespace web_api_tests
         }
 
         [Fact]
-        public void Delete_NotExistingIdPassed_DoesntRemoveAnyItem()
+        public void Delete_UnknownIdPassed_DoesntRemoveAnyItem()
         {
             // Act
-            var labelId = controller.DeleteLabel("100").Result;
+            _ = controller.DeleteLabel("100").Result;
 
             // Assert
             var result = controller.GetLabels().Result;
@@ -65,8 +65,8 @@ namespace web_api_tests
         public void Post_NotExistingNamePassed_AddsItem()
         {
             // Act
-            var labelId = controller.AddLabel(
-                new Label() { name = "AddLabelTest", type = "test_type", userid = "0"  }
+            _ = controller.AddLabel(
+                    new Label() { name = "AddLabelTest", type = "test_type", userid = "0"  }
                 ).Result;
 
             // Assert
@@ -79,8 +79,8 @@ namespace web_api_tests
         public void Post_ExistingNamePassed_DoesntAddItem()
         {
             // Act
-            var labelId = controller.AddLabel(
-                new Label() { name = "test_name", type = "test_type", userid = "0" }
+            _ = controller.AddLabel(
+                    new Label() { name = "test_name", type = "test_type", userid = "0" }
                 ).Result;
 
             // Assert
