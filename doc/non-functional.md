@@ -17,3 +17,15 @@ A feladat nézeten levő oszlopok egymás alá kerültek, így nehezebben elkül
 A keresés, címkék és felhasználó oldalak használhatóan jelennek meg, bár nem szépek, például a címkék az egész oldal szélességét kitöltik, ahelyett, hogy egymást követnék.
 
 Ezenkívül, a nagy méretű felhasznált könyvtárak miatt a letöltött JavaScript fájl nagyon nagy méretű (több mint 10 MB), ez lassabb mobil kapcsolatokon szignifikánsan nagyobb betöltési időt eredményezhet, illetve akár több pénzbe is kerülhet.
+
+## Lighthouse Jelentés
+
+A LightHouse a Google Chrome automatizált eszköze weboldalak minőségének tesztelésére. A jelentés generálásakor pontszámot ad különböző aspektusokban, mint a teljesítmény, vagy hozzáférhetőség.
+
+![](img/lighthouse_report.PNG)
+
+A jelentésen látható, hogy az alkalmazás nagyon rossz teljesítménnyel rendelkezik, ennek fő oka az első interaktivitásig eltelő idő, amely a korábban említett nagyméretű JavaScript fájl letöltése miatt történik. Az eszköz ajánlatot is tesz, hogy miképpen lehetne ezen javítani: React alkalmazás esetén lehetne "lusta" betöltést (lazy loading) használni, amellyel legalább harmadával lehetne csökkenteni az első letöltés méretét.
+
+![](img/lighthouse_report-2.PNG)
+
+Ezen kívül magas szintű sérülékenységet talált a felhasznált könyvtárakban, a Lo-Dash könyvtár 4.17.20-as számú verziójában. Egy ilyen sérülékenységről természetesen egy potenciális támadó is könnyen értesülhet és különösebb erőfeszítés nélkül ki is tudja használni. Érdemes a könyvtárakat tehát a legfrissebb, legbiztonságosabb verzióra frissíteni.
