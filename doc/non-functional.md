@@ -29,3 +29,41 @@ A jelentésen látható, hogy az alkalmazás nagyon rossz teljesítménnyel rend
 ![](img/lighthouse_report-2.PNG)
 
 Ezen kívül magas szintű sérülékenységet talált a felhasznált könyvtárakban, a Lo-Dash könyvtár 4.17.20-as számú verziójában. Egy ilyen sérülékenységről természetesen egy potenciális támadó is könnyen értesülhet és különösebb erőfeszítés nélkül ki is tudja használni. Érdemes a könyvtárakat tehát a legfrissebb, legbiztonságosabb verzióra frissíteni.
+
+## Stressz teszt
+
+Az alkalmazás stressz tesztjét K6-tal végeztük, az eszköz itt érhető el: https://k6.io/. Az operációs rendszertől függő telepítés után a parancssorból `k6` paranccsal futtatható. A teszt szkriptjét JavaScript nyelven lehet megírni, felhasználva a K6 saját készítésű könyvtárát. Ezzel az alábbi módon lehet egy egyszerű tesztet létrehozni, amelyben egy bejelentkezési kísérletet teszünk HTTP POST igével a megfelelő API endpointra, hozzáadunk HTTP headeröket is, és a kapott eredményt ellenőrizzük, hogy megfelelő-e, esetünkben ez 200-as státusz kódot jelent, illetve, hogy a kapott eredmény tartalmaz-e egy token nevű tulajdonságot.
+
+```js
+import http from "k6/http";
+import { check } from "k6";
+
+const API_URL = "https://localhost:5001/api";
+
+export default function () {
+  const payload = JSON.stringify({
+    email: "aa@bb.hu",
+    password: "password",
+  });
+  var params = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const login_response = http.post(
+    `${API_URL}/user/authenticate`,
+    payload,
+    params
+  );
+  check(login_response, {
+    "is status 200": (r) => r.status === 200,
+    "is token present": (r) => r.json().hasOwnProperty("token"),
+  });
+}
+```
+
+Az eszköz segítségével lehetséges csoportokat is felhasználni, amelyek egy felhasználó útját lekövetik. A futtatott stressz teszt is ilyen, először bejelentkezik az egyik felhasználó nevében, majd lekérdezi a rendelkezésre álló feladatokat és kurzusokat, létrehoz egy újat az utóbbiból, majd kitörli azt.
+
+Ezután a teszt során megadhatjuk, hogy hány virtuális felhasználót szeretnénk (azaz hányan bombázzák egyszerre a szervert), és hány iterációt teljesítsenek. A teszt eredménye lent található, körülbelül 400 körüli felhasználót tud kezelni a rendszer, utána már a kérések egy részét elutasítja. Viszont már itt is (400 felhasználó, felhasználónként 10 iteráció) látszik, hogy egyes kérések kiszolgálási ideje hatalmas lehet (akár több, mint 7 másodperc is) a terhelés miatt. Átlagosan egy teljes felhasználói út futattása 10 másodperc körüli időbe telt.
+
+![](img/stress-test-1.png)
