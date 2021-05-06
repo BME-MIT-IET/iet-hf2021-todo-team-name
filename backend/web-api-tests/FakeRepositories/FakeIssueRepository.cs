@@ -22,14 +22,6 @@ namespace web_api_tests.FakeRepositories
                 new Issue() { ID = "2", title = "test_title2", body = "test_body2", type = "test_type2", timespan = "30", userID = "1" },
             };
         }
-        /*
-        public string relevantClass { get; set; }
-        public DateTime? date { get; set; }
-        public DateTime? start { get; set; }
-        public DateTime? end { get; set; }
-        public DateTime? deadline { get; set; }
-        public List<string>? labels { get; set; }
-         */
 
         public async Task<ClientIssue> AddIssue(string userID, ClientIssue client)
         {
