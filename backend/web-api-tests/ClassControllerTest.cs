@@ -59,7 +59,7 @@ namespace web_api_tests
         }
 
         [Fact]
-        public async void Add_WhenCalled_WithUserThatDoesntExist_ShouldThrowErrorOrReturnNull()
+        public async void Add_WhenCalled_WithUserThatDoesntExist_ShouldThrowErrorl()
         {
             // Act
             var toAdd = new Class() { ID = "10", color = "red", icon = "AUT", name = "onlab", userID = "120" };
@@ -121,7 +121,6 @@ namespace web_api_tests
             var result = await controller.DeleteClass(toRemove.ID);
 
             // Assert
-           
             Assert.Null(result.Value);
         }
 
