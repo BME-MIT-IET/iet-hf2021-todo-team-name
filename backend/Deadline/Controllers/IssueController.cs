@@ -44,7 +44,7 @@ namespace Deadline.Controllers
             }
 
             [HttpDelete("{issueid}")]
-            public async Task<ActionResult<string>> DeleteClass(string issueid)
+            public async Task<ActionResult<string>> DeleteIssue(string issueid)
             {
                 return await ir.DeleteIssue(HttpContext.Items["UserID"].ToString(), issueid);
             }

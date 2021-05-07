@@ -41,8 +41,10 @@ namespace web_api_tests.FakeRepositories
         public async Task<ClientIssue> GetIssue(string userID, string id)
         {
             Issue issue = issues.FirstOrDefault(item => item.ID == id);
-            ClientIssue client = new ClientIssue(issue);
-            return client;
+
+            if (issue == null) return null;
+
+            return new ClientIssue(issue);
         }
 
         private List<ClientIssue> ToClientList(List<Issue> issues)
@@ -78,11 +80,23 @@ namespace web_api_tests.FakeRepositories
 
         public async Task<ClientIssue> UpdateIssue(string userID, ClientIssue client)
         {
-            Issue issue = client.Convert();
-            issue.userID = userID;
-            issues.RemoveAll(item => item.ID == issue.ID);
-            issues.Add(issue);
-            return new ClientIssue(issue);
+            Issue issue = issues.FirstOrDefault(i => i.ID == client.ID);
+
+            if (issue == null)
+            { 
+                return null;
+            }
+            else
+            {
+                issues.RemoveAll(i => i.ID == client.ID);
+
+                Issue newIssue = client.Convert();
+                newIssue.userID = userID;
+
+                issues.Add(newIssue);
+
+                return new ClientIssue(newIssue);
+            }
         }
     }
 }

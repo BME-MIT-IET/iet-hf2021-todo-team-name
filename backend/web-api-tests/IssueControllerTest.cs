@@ -52,7 +52,7 @@ namespace web_api_tests
         }
 
         [Fact]
-        public void GetById_UnknownIdPassed_DoesntReturnItem()
+        public void GetById_UnknownIdPassed_ReturnsNull()
         {
             // Act
             var result = controller.GetIssue("100").Result;
@@ -102,7 +102,7 @@ namespace web_api_tests
         }
 
         [Fact]
-        public void Put_UnknownIdPassed_AddsItem() // is this correct tho ?
+        public void Put_UnknownIdPassed_DoesntAddItem()
         {
             // Arrange
             var id = "100";
@@ -112,16 +112,15 @@ namespace web_api_tests
             _ = controller.UpdateIssue(newIssue);
 
             // Assert
-            var issues = controller.GetIssues().Result;
-            var items = Assert.IsType<List<ClientIssue>>(issues.Value);
-            Assert.Equal(3, items.Count);
+            var result = controller.GetIssue(id).Result;
+            Assert.Null(result.Value);
         }
 
         [Fact]
         public void Delete_ExistingIdPassed_RemovesItem()
         {
             // Act
-            _ = controller.DeleteClass("0"); // Delete CLASS ?
+            _ = controller.DeleteIssue("0");
 
             // Assert
             var issues = controller.GetIssues().Result;
@@ -133,7 +132,7 @@ namespace web_api_tests
         public void Delete_UnknownIdPassed_DoesntRemoveAnyItem()
         {
             // Act
-            _ = controller.DeleteClass("100");
+            _ = controller.DeleteIssue("100");
 
             // Assert
             var issues = controller.GetIssues().Result;

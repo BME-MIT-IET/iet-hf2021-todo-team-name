@@ -44,16 +44,29 @@ namespace Deadline.DB
         }
         public async Task<ClientIssue> UpdateIssue(string userID, ClientIssue client)
         {
-            Issue issue = client.Convert();
-            issue.userID = userID;
-            await db.Issues.ReplaceOneAsync(item => item.ID == issue.ID, issue);
-            return client;
+            Issue toEdit = await db.Issues.Find(item => item.ID == client.ID).FirstOrDefaultAsync();
+
+            if (toEdit == null)
+            {
+                return null;
+            }
+            else
+            {
+                Issue newIssue = client.Convert();
+                newIssue.userID = userID;
+
+                await db.Issues.ReplaceOneAsync(item => item.ID == newIssue.ID, newIssue);
+
+                return new ClientIssue(newIssue);
+            }
         }
         public async Task<ClientIssue> GetIssue(string userID, string id)
         {
             Issue issue = await db.Issues.Find(item => item.ID == id).FirstOrDefaultAsync();
-            ClientIssue client = new ClientIssue(issue);
-            return client;
+
+            if (issue == null) return null;
+
+            return new ClientIssue(issue);
         }
         public async Task<string> DeleteIssue(string userID, string id)
         {
