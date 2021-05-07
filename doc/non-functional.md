@@ -4,6 +4,14 @@
 
 A weboldal használata csak bejelentkezés után lehetséges, a nem bejelentkezett felhasználókat az oldal átirányítja a bejelentkezési felületre. Az autentikáció és autorizáció JSON Web Tokenek segítségével történik, viszont ennek aláírása egy hetes időtartamra történik. Ezen megközelítés biztonsági problémákat jelenthet, ugyanis nincs megoldás az egyes tokenek visszavonására, így egy felhasználó kitiltásakor például még egy hétig fogja tudni használni az alkalmazást, akkor is, ha bejelentkezni már nem tudna. Ez azért lehetséges, mert az alkalmazás nem generál minden munkamenethez új tokent, hanem egyszerűen eltárolja a böngésző LocalStorage API-ján keresztül azt, és minden alkalommal, amikor az oldal megnyitja a felhasználó, előveszi azt. Így a token könnyedén elérhető JavaScriptből is, ezzel a Cross Site Scripting (XSS) biztonsági kockázatát növelve.
 
+A biztonsági teszthez az OWASP ZAP alkalmazását használtuk, melynek segítségével több, különböző eszközzel lehet támadni az oldalt. A következő sérülékenységeket találtuk ezzel:
+
+- Az X-Frame-Options header nincs beállítva, ezáltal lehetségessé válhat az oldal beágyazása máshol.
+- Az X-Content-Type-Options header sincs beállítva, ezzel megtilthatjuk a böngészőnek azt, hogy a MIME típust megpróbálja intelligensen kitalálni, ahelyett, hogy a szervertől kapott típusként renderelné azt le. Ez bizonyos phishing támadásokra adna lehetőséget.
+- Az X-Powered-By header viszont be van állítva, ezzel jelezve mindenkinek, hogy milyen szerverrel szolgáljuk ki a kéréseket. Ez az információ nagyon hasznos lehet a támadónak, hiszen mostmár tudja, hogy milyen rendszer sérülékenységeit kell megpróbálnia kihasználni.
+
+Az alkalmazás nem tartalmazott kritikus sérülékenységeket a fentieken kívül.
+
 ## Kompatibilitás
 
 Az alkalmazás két részre bomlik, egy React (TypeScript) alapú frontend és .NET Core alapú backendre. Ezeknek kompatibilitása jó, hiszen a .NET Core a .NET Frameworkkel ellentétben cross-platform, azaz futtatható Windows, Linux, vagy MacOS alapú rendszereken is. A frontend alkalmazás fordításának eredménye HTML, CSS és JavaScript fájlok, amelyeket tetszőleges módszerrel lehet kiszolgálni (akár .NET-ben használatos IIS Expressel is).
