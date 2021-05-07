@@ -12,6 +12,14 @@ A biztonsági teszthez az OWASP ZAP alkalmazását használtuk, melynek segíts�
 
 Az alkalmazás nem tartalmazott kritikus sérülékenységeket a fentieken kívül.
 
+## Jelszó biztonság
+
+A jelsző biztonság külön problémás az alkalmazásban. A regisztrációs felületen van validáció a bemeneteken, ez legalább 5 és legfeljebb 32 karakteres bemeneteket vár el. Mind az alsó, mind a felső határ túl alacsony, az 5 karakteres jelszavak nem megfelelően komplexek, míg valójában nincs okunk a jelszó hosszát mindössze 32-ben korlátozni, miközben ennél hosszabb jelszavakat is használhatna a felhasználó.
+
+Ennél sokkal veszélyesebb az a tény, hogy a szerver oldalon nincsen validáció a szükséges mezőkön kívül, azaz a kimenő kérés "elkapásával" (pl. OWASP ZAP eszközzel) könnyedén meg lehet adni 5 karakternél rövidebb, vagy 32 karakternél hosszabb jelszót is.
+
+Ezenkívül lehetne komplexebb szabályokkal biztosítani, hogy a felhasználók biztonságos jelszavakat adjanak meg, például kis- és nagybetűk használata, vagy számjegyek és egyéb karaktereké.
+
 ## Kompatibilitás
 
 Az alkalmazás két részre bomlik, egy React (TypeScript) alapú frontend és .NET Core alapú backendre. Ezeknek kompatibilitása jó, hiszen a .NET Core a .NET Frameworkkel ellentétben cross-platform, azaz futtatható Windows, Linux, vagy MacOS alapú rendszereken is. A frontend alkalmazás fordításának eredménye HTML, CSS és JavaScript fájlok, amelyeket tetszőleges módszerrel lehet kiszolgálni (akár .NET-ben használatos IIS Expressel is).
