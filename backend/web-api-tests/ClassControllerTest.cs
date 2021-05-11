@@ -34,7 +34,7 @@ namespace web_api_tests
         }
 
         [Fact]
-        public async void Add_WhenCalled_AddsItem_ReturnsItem()
+        public async void Add_AddsItem_ReturnsItem()
         {
             // Act
             var toAdd = new Class() { ID = "10", color = "red", icon = "AUT", name = "onlab", userID = "0" };
@@ -46,7 +46,7 @@ namespace web_api_tests
         }
 
         [Fact]
-        public async void Add_WhenCalled_AddsItem_ListExpands()
+        public async void Add_AddsItem_ListExpands()
         {
             // Act
             var lengthBefore = repository.GetClasses("0").Result.Count;
@@ -59,7 +59,7 @@ namespace web_api_tests
         }
 
         [Fact]
-        public async void Add_WhenCalled_WithUserThatDoesntExist_ShouldThrowErrorl()
+        public async void Add_WithUserThatDoesntExist_ShouldThrowErrorl()
         {
             // Act
             var toAdd = new Class() { ID = "10", color = "red", icon = "AUT", name = "onlab", userID = "120" };
@@ -71,7 +71,7 @@ namespace web_api_tests
 
         // this equal is bugged, they are the same and still it fails
         [Fact]
-        public async void Delete_WhenCalled_Deletes_Existing_AndReturnsDeleted()
+        public async void Delete_Deletes_Existing_AndReturnsDeleted()
         {
             // Act
             var toRemove = new Class() { ID = "1", color = "green", icon = "important", name = "iet", userID = "0" };
@@ -82,7 +82,7 @@ namespace web_api_tests
         }
 
         [Fact]
-        public async void Delete_WhenCalled_Removes_Item()
+        public async void Delete_Removes_Item()
         {
             // Act
             var toRemove = new Class() { ID = "1", color = "green", icon = "important", name = "iet", userID = "0" };
@@ -96,7 +96,7 @@ namespace web_api_tests
         }
 
         [Fact]
-        public async void Delete_WhenCalled_With_Non_Existing_User_DoesntRemove()
+        public async void Delete_With_Non_Existing_User_DoesntRemove()
         {
             // Act
             controller.ControllerContext.HttpContext.Items.Remove("UserID");
@@ -111,7 +111,7 @@ namespace web_api_tests
         }
 
         [Fact]
-        public async void Delete_WhenCalled_With_Non_Existing_User_ReturnsNull()
+        public async void Delete_With_Non_Existing_User_ReturnsNull()
         {
             // Act
             controller.ControllerContext.HttpContext.Items.Remove("UserID");
@@ -125,7 +125,7 @@ namespace web_api_tests
         }
 
         [Fact]
-        public async void Delete_WhenCalled_With_Non_Existing_Class_DoesntRemove()
+        public async void Delete_With_Non_Existing_Class_DoesntRemove()
         {
             // Act
             var toRemove = new Class() { ID = "111", color = "green", icon = "important", name = "iet", userID = "0" };
@@ -138,7 +138,7 @@ namespace web_api_tests
         }
 
         [Fact]
-        public async void Delete_WhenCalled_With_Non_Existing_Class_ReturnNull()
+        public async void Delete_With_Non_Existing_Class_ReturnNull()
         {
             // Act
             var toRemove = new Class() { ID = "1111", color = "green", icon = "important", name = "iet", userID = "0" };
@@ -150,7 +150,7 @@ namespace web_api_tests
 
         // this works as well but buggy because of shallow copying?
         [Fact]
-        public async void GetClass_WhenCalled_ReturnsClass()
+        public async void GetClass_ReturnsClass()
         {
             // Act
             var toGet = new Class() { ID = "1", color = "green", icon = "important", name = "iet", userID = "0" };
@@ -161,7 +161,7 @@ namespace web_api_tests
         }
 
         [Fact]
-        public async void GetClass_WhenCalled_WithWrongUser_ReturnsNull()
+        public async void GetClass_WithWrongUser_ReturnsNull()
         {
             // Act
             controller.ControllerContext.HttpContext.Items.Remove("UserID");
@@ -175,7 +175,7 @@ namespace web_api_tests
         }
 
         [Fact]
-        public async void GetClass_WhenCalled_With_NonExistingClass_ReturnsNull()
+        public async void GetClass_With_NonExistingClass_ReturnsNull()
         {
             // Act
             
@@ -188,7 +188,7 @@ namespace web_api_tests
         // we have to throw an exception, as accessing a certain class without having permission
         // could be dangerous
         [Fact]
-        public async void GetClass_WhenCalled_WithNonExistingUser_ThrowsException()
+        public async void GetClass_WithNonExistingUser_ThrowsException()
         {
             // Act
             controller.ControllerContext.HttpContext.Items.Remove("UserID");
@@ -201,7 +201,7 @@ namespace web_api_tests
         }
 
         [Fact]
-        public async void GetClasses_WhenCalled_ReturnsCorrectClasses()
+        public async void GetClasses_ReturnsCorrectClasses()
         {
             // Act
             var result = await controller.GetClasses();
@@ -214,7 +214,7 @@ namespace web_api_tests
         // doesnt need to throw an error when called with a user that doesn't exist, because we return an empty list,
         // and so, it isnt dangerous
         [Fact]
-        public async void GetClasses_WhenCalled_WithUserThatHasNoClasses_ReturnsEmpty()
+        public async void GetClasses_WithUserThatHasNoClasses_ReturnsEmpty()
         {
             // Act
             controller.ControllerContext.HttpContext.Items.Remove("UserID");
@@ -227,7 +227,7 @@ namespace web_api_tests
         }
 
         [Fact]
-        public async void Update_WhenCalled_UpdatesItem()
+        public async void Update_UpdatesItem()
         {
             // Act
             var toUpdate = new Class() { ID = "1", color = "red", icon = "important", name = "iet", userID = "0" };
@@ -238,7 +238,7 @@ namespace web_api_tests
         }
 
         [Fact]
-        public async void Update_WhenCalled_WithNonExistingItem_ReturnsNull()
+        public async void Update_WithNonExistingItem_ReturnsNull()
         {
             // Act
             var toUpdate = new Class() { ID = "111", color = "red", icon = "important", name = "iet", userID = "0" };
@@ -250,7 +250,7 @@ namespace web_api_tests
 
         // This should throw an exception, as updating without permission is dangerous
         [Fact]
-        public async void Update_WhenCalled_WithNonExistingUser_ThrowsException()
+        public async void Update_WithNonExistingUser_ThrowsException()
         {
             // Act
             controller.ControllerContext.HttpContext.Items.Remove("UserID");

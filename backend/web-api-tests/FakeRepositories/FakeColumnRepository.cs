@@ -22,12 +22,6 @@ namespace web_api_tests.FakeRepositories
         
         public FakeColumnRepository()
         {
-            issues = new List<Issue>
-            {
-                new Issue() { ID = "0", title = "iet_title", body = "iet_body", type = "iet_type", timespan = "10", userID = "0", relevantClass = "1", labels = {"0", "1" } },
-                new Issue() { ID = "1", title = "test_title", body = "test_body", type = "test_type", timespan = "20", userID = "0", relevantClass = "1" },
-                new Issue() { ID = "2", title = "test_title2", body = "test_body2", type = "test_type2", timespan = "30", userID = "1", relevantClass = "1" }
-            };
 
             classes = new List<Class>()
             {
@@ -44,6 +38,13 @@ namespace web_api_tests.FakeRepositories
                 new Label() { ID = "0", name = "iet_name", type = "iet_type", userid = "0" },
                 new Label() { ID = "1", name = "test_name", type = "test_type", userid = "0" },
                 new Label() { ID = "2", name = "test_name2", type = "test_type2", userid = "1" },
+            };
+
+            issues = new List<Issue>()
+            {
+                new Issue() { ID = "0", title = "iet_title", body = "iet_body", type = "iet_type", timespan = "10", userID = "0", relevantClass = "1", labels = new List<string>() {"0", "1" } },
+                new Issue() { ID = "1", title = "test_title", body = "test_body", type = "test_type", timespan = "20", userID = "0", relevantClass = "1", labels = new List<string>() {"0", "1" }  },
+                new Issue() { ID = "2", title = "test_title2", body = "test_body2", type = "test_type2", timespan = "30", userID = "1", relevantClass = "1", labels = new List<string>() {"0", "1" }  }
             };
 
             columns = new List<Column>()
@@ -127,7 +128,7 @@ namespace web_api_tests.FakeRepositories
 
         public async Task<List<ClientColumn>> GetColumns(string userID)
         {
-            var columnsFound = columns.AsQueryable().Where(column => column.userID == userID).ToList();
+            var columnsFound = columns.AsQueryable().Select(t => t).Where(column => column.userID == userID).ToList();
             return await PopulateList(columnsFound);
         }
 
