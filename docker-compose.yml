@@ -1,0 +1,34 @@
+version: '3.7'
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb:/data/db
+      
+  backend:
+    build: ./backend
+    ports: 
+      - 5001:80
+    depends_on: 
+      - mongo    
+    
+  frontend:
+    build: ./frontend
+    environment:
+      - HTTPS_METHOD=noredirect
+    volumes:
+      - './frontend:/app'
+      - '/app/node_modules'
+    ports: 
+      - 3000:80
+    depends_on: 
+      - backend
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      
+volumes:
+  mongodb:

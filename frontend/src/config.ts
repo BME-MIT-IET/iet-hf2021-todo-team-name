@@ -3,7 +3,7 @@ const dev = {
 };
 
 const prod = {
-  apiLink: "",
+  apiLink: "https://localhost:5001/api", //use same as dev to make docker easy
 };
 
 const config = process.env.NODE_ENV === "development" ? dev : prod;
