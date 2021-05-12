@@ -18,7 +18,7 @@ A jelszó biztonság külön problémás az alkalmazásban. A regisztrációs fe
 
 Ennél sokkal veszélyesebb az a tény, hogy a szerver oldalon nincsen validáció a szükséges mezőkön kívül, azaz a kimenő kérés "elkapásával" (pl. OWASP ZAP eszközzel) könnyedén meg lehet adni 5 karakternél rövidebb, vagy 32 karakternél hosszabb jelszót is.
 
-Ezenkívül lehetne komplexebb szabályokkal biztosítani, hogy a felhasználók biztonságos jelszavakat adjanak meg, például kis- és nagybetűk használata, vagy számjegyek és egyéb karaktereké.
+Ezenkívül lehetne komplexebb szabályokkal biztosítani, hogy a felhasználók biztonságos jelszavakat adjanak meg, például kis- és nagybetűk, számjegyek és/vagy speciális karakterek használata.
 
 ## Kompatibilitás
 
