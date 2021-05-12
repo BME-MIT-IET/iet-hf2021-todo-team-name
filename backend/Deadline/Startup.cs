@@ -39,6 +39,7 @@ namespace Deadline
                                   builder =>
                                   {
                                       builder.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader();
+                                      builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
                                   });
             });
             services.AddTransient<Database>();

@@ -14,8 +14,6 @@ Ebben a tesztelésben **Black Box Testing**-et alkalmazunk, amikor a tesztelő a
 
 ## A kliensoldal tesztelése
 
-Táblázat: [frontend-tests](https://github.com/BME-MIT-IET/iet-hf2021-todo-team-name/manual-tests/manual-tests.htm)
-
 Teszt neve | Eredmény
 ---------- | --------
 Login oldal | sikeres
@@ -52,3 +50,15 @@ Címke törlése | sikertelen
 ## A backend tesztelése Postmannel
 
 
+Postman használatakor egy kollekcióba szerveztem a tesztelést, azon belül mappákba, amik bizonyos részét tesztelik az API-nak.
+A tesztelés során használtam a beépített postman tesztelést, valamint a változókat, pl($randomEmail).
+
+![API tests](./manual-test-pics/api_tests.png)
+
+Az összesítésből kiderül, hogy a bejelentkezés, regisztráció megfelelően működik. Az authorizáció egy esetben nem működik, amikor az összes felhasználót lekérdezzük, ahhoz nem szükséges.
+
+### Bugok:
+
+* Létre lehet hozni osztály adat nélkül is.
+* Csak azokat az osztályokat lehet módosítani, lekérdezni, törölni, amiknek nem null az UserId-ja.
+* Létre lehet hozni új feladatot/eseményt adat nélkül.
