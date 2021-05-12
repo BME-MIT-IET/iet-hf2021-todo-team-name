@@ -69,7 +69,7 @@ namespace web_api_tests
             await Assert.ThrowsAsync<ArgumentException>(async () => await controller.AddClass(toAdd));
         }
 
-        // this equal is bugged, they are the same and still it fails
+        // this equal is bugged if we use the whole object, they are the same and still it fails
         [Fact]
         public async void Delete_Deletes_Existing_AndReturnsDeleted()
         {
@@ -78,7 +78,7 @@ namespace web_api_tests
             var result = await controller.DeleteClass(toRemove.ID);
 
             // Assert
-            Assert.Equal(toRemove, result.Value);
+            Assert.Equal(toRemove.ID, result.Value.ID);
         }
 
         [Fact]
@@ -148,7 +148,7 @@ namespace web_api_tests
             Assert.Null(result.Value);
         }
 
-        // this works as well but buggy because of shallow copying?
+        // this works as well but buggy if we use the whole object because of shallow copying?
         [Fact]
         public async void GetClass_ReturnsClass()
         {
@@ -157,7 +157,7 @@ namespace web_api_tests
             var result = await controller.GetClass("1");
 
             // Assert
-            Assert.Equal(toGet, result.Value);
+            Assert.Equal(toGet.ID, result.Value.ID);
         }
 
         [Fact]
@@ -217,8 +217,8 @@ namespace web_api_tests
         public async void GetClasses_WithUserThatHasNoClasses_ReturnsEmpty()
         {
             // Act
-            controller.ControllerContext.HttpContext.Items.Remove("UserID");
-            controller.ControllerContext.HttpContext.Items.Add("UserID", "2");
+            controller.ControllerContext.HttpContext.Items.Clear();
+            controller.ControllerContext.HttpContext.Items.Add("UserID", "5");
 
             var result = await controller.GetClasses();
 

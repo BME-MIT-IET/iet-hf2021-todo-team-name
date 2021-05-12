@@ -53,7 +53,7 @@ namespace web_api_tests
         }
 
         [Fact]
-        public async void AddIssue_WhenCalled_AddsItem()
+        public async void AddIssue_WhenCalled_Returns()
         {
             // Act
             var body = new ColumnController.NewIssueType()
@@ -67,6 +67,40 @@ namespace web_api_tests
             Assert.IsType<Task<ActionResult<ClientColumn>>>(result);
         }
 
+        [Fact]
+        public async void AddIssue_AddsItem()
+        {
+            // Act
+            var lengthBefore = controller.GetColumns().Result.Value.Count;
+            var body = new ColumnController.NewIssueType()
+            {
+                columnid = "0",
+                issueid = "0"
+            };
+            await controller.AddIssue(body);
+            var lengthAfter = controller.GetColumns().Result.Value.Count;
 
+            // Assert
+            Assert.Equal(lengthBefore, lengthAfter);
+        }
+
+        [Fact]
+        public async void RemoveIssue_RemovesItem()
+        {
+            // Act
+            var lengthBefore = controller.GetColumns().Result.Value.Count;
+            var body = new ColumnController.NewIssueType()
+            {
+                columnid = "0",
+                issueid = "0"
+            };
+            await controller.AddIssue(body);
+            await controller.RemoveIssue(body);
+
+            var lengthAfter = controller.GetColumns().Result.Value.Count;
+
+            // Assert
+            Assert.Equal(lengthBefore, lengthAfter);
+        }
     }
 }
