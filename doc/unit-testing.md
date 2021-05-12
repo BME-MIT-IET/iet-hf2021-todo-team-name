@@ -41,7 +41,7 @@ akkor amennyiben bárki ismeri valamely erõforrásom azonosítóját képes lesz azt t
 
 ### Controllerek tesztlefedettsége
 
-![](img/controller_coverage.png)
+![](img/controllers_coverage.png)
 
 ### Entitás és kliens osztályok lefedettsége
 
