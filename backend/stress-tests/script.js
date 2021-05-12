@@ -5,7 +5,7 @@ const API_URL = "https://localhost:5001/api";
 const SLEEP_DURATION = 0.1;
 
 export default function () {
-  group("create class user journey", (_) => {
+  group("create class user journey", () => {
     // Login
     const payload = JSON.stringify({
       email: "aa@bb.hu",
