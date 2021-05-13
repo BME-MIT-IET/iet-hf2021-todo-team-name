@@ -44,7 +44,7 @@ namespace Deadline.DB
         }
         public async Task<ClientIssue> UpdateIssue(string userID, ClientIssue client)
         {
-            Issue toEdit = await db.Issues.Find(item => item.ID == client.ID).FirstOrDefaultAsync();
+            Issue toEdit = await db.Issues.Find(item => item.ID == client.ID && item.userID == userID).FirstOrDefaultAsync();
 
             if (toEdit == null)
             {
@@ -70,7 +70,7 @@ namespace Deadline.DB
         }
         public async Task<string> DeleteIssue(string userID, string id)
         {
-            var res = await db.Issues.DeleteOneAsync(item => item.ID == id);
+            var res = await db.Issues.DeleteOneAsync(item => item.ID == id && item.userID == userID);
             return id;
         }
         public async Task<List<ClientIssue>> Search(string userid, string query, CancellationToken cancellationToken = default(CancellationToken))

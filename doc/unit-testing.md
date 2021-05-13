@@ -37,9 +37,11 @@ A tesztelés során több hibát is találtunk, amelyekre a tesztek hibajelzése mutat
 Az egyszerûbb hibákat igyekeztünk kijavítani, ilyen volt pl. az *IssueRepository* *UpdateIssue* függvénye,
 ami akkor is létrehozott és visszaadott egy *ClientIssue* példányt,
 amikor az átadott ID nem tartozott valódi rekordhoz.
-Valamint fény derült arra is, hogy a felhasználói ID csupán a listázó mûveleteknél van figyelembe véve.
+Valamint fény derült arra is, hogy az IssueRepository esetén a felhasználói ID csupán a
+listázó mûveleteknél van figyelembe véve.
 Ez biztonsági szempontból nem a legjobb, hiszen ha nincs ID ellenõrzés egy törlési mûveletben,
 akkor amennyiben bárki ismeri valamely erõforrásom azonosítóját képes lesz azt törölni.
+Végül ezt is sikerült kijavítanunk, így már ezen tesztek is sikeren lefutottak.
 
 ### Controllerek tesztlefedettsége
 

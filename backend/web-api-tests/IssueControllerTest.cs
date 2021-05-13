@@ -159,5 +159,39 @@ namespace web_api_tests
             // Assert
             Assert.Empty(result.Value);
         }
+
+        [Fact]
+        public void Delete_ExistingButNotOwnedIdPassed_DoesntRemoveItem()
+        {
+            // Act: delete call from UserID-0 on UserID-1's Issue
+            _ = controller.DeleteIssue("2");
+
+            // Assert: list issues from UserID-1
+            controller.ControllerContext.HttpContext = new DefaultHttpContext();
+            controller.ControllerContext.HttpContext.Items.Add("UserID", "1");
+
+            var issues = controller.GetIssues().Result;
+            var items = Assert.IsType<List<ClientIssue>>(issues.Value);
+            Assert.Single(items);
+        }
+
+        [Fact]
+        public void Put_ExistingButNotOwnedIdPassed_DoesntUpdateItem()
+        {
+            // Arrange
+            var id = "2";
+            var newIssue = new ClientIssue() { ID = id };
+
+            // Act: delete call from UserID-0 on UserID-1's Issue
+            _ = controller.UpdateIssue(newIssue);
+
+            // Assert: list issues from UserID-1
+            controller.ControllerContext.HttpContext = new DefaultHttpContext();
+            controller.ControllerContext.HttpContext.Items.Add("UserID", "1");
+
+            var issue = controller.GetIssue(id).Result;
+            var item = Assert.IsType<ClientIssue>(issue.Value);
+            Assert.NotEqual(newIssue.title, item.title);
+        }
     }
 }
