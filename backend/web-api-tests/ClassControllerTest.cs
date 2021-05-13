@@ -68,9 +68,12 @@ namespace web_api_tests
             // Arrange
             var toAdd = new Class() { ID = "10", color = "red", icon = "AUT", name = "onlab", userID = "120" };
 
+            // Act
+
+            var result = controller.AddClass(toAdd);
 
             // Assert
-            await Assert.ThrowsAsync<ArgumentException>(async () => await controller.AddClass(toAdd));
+            await Assert.ThrowsAsync<ArgumentException>(async () => await result);
         }
 
 
@@ -209,8 +212,11 @@ namespace web_api_tests
             controller.ControllerContext.HttpContext.Items.Remove("UserID");
             controller.ControllerContext.HttpContext.Items.Add("UserID", "22222");
 
+            // Act
+            var result = controller.GetClass("1");
+
             // Assert
-            await Assert.ThrowsAsync<ArgumentException>(async () => await controller.GetClass("1"));
+            await Assert.ThrowsAsync<ArgumentException>(async () => await result);
         }
 
         [Fact]
@@ -276,9 +282,11 @@ namespace web_api_tests
 
             var toUpdate = new Class() { ID = "1", color = "red", icon = "important", name = "iet", userID = "0" };
 
+            // Act
+            var result = controller.UpdateClass(toUpdate);
 
             // Assert
-            await Assert.ThrowsAsync<ArgumentException>(async () => await controller.UpdateClass(toUpdate));
+            await Assert.ThrowsAsync<ArgumentException>(async () => await result);
         }
     }
 }
