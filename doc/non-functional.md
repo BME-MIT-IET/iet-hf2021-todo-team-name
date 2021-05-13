@@ -32,7 +32,7 @@ A feladat nézeten levő oszlopok egymás alá kerültek, így nehezebben elkül
 
 A keresés, címkék és felhasználó oldalak használhatóan jelennek meg, bár nem szépek, például a címkék az egész oldal szélességét kitöltik, ahelyett, hogy egymást követnék.
 
-Ezenfelül, a nagy méretű felhasznált könyvtárak miatt a letöltött JavaScript fájl nagyon nagy méretű (több mint 10 MB), ez lassabb mobil kapcsolatokon szignifikánsan nagyobb betöltési időt eredményezhet, illetve akár több pénzbe is kerülhet.
+Ezenfelül a felhasznált nagy méretű könyvtárak miatt a letöltött JavaScript fájl hatalmas méretű (több mint 10 MB), ez lassabb mobil kapcsolatokon szignifikánsan hosszabb betöltési időt eredményezhet, illetve akár több pénzbe is kerülhet.
 
 ## Lighthouse jelentés
 
