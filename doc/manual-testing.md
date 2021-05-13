@@ -1,9 +1,9 @@
 # Manuális tesztek megtervezése, végrehajtása és dokumentálása
 
 ## A munka leírása
-A manuális tesztelés célja, hogy olyan szituációkat, eseteket teszteljen, olyan hibákat keressünk, amiket az automatikus teszteknek nem sikerül.
+A manuális tesztelés célja, hogy olyan szituációkat, eseteket teszteljen, olyan hibákat keressünk, amiket az automatikus teszteknek nem sikerül felfednie.
 
-A manuális tesztek során ezért elsősorban nem a modell, hanem az API és a felhasználói felületet kellett tesztelni, megbizonyosodni róla, hogy az elvárt funkciókhoz képest milyen hibákat találunk bennük.
+A manuális tesztek során elsősorban nem a modellt, hanem az API-t és a felhasználói felületet kellett tesztelni, megbizonyosodni róla, hogy az elvárt funkciókhoz képest milyen hibákat találunk bennük.
 
 ## Manuális tesztelés típusok
 - White Box Testing
@@ -30,7 +30,7 @@ Címke törlése | sikertelen
 
 ### Az eredmények:
 - A bejelentkezésben nem találtam hibát. XSS támadással sem sikerült bug-ot okoznom. 
-- A regisztrációnál nem lehet ugyan olyan email címmel regisztrálni, de ugyan olyan névvel igen.
+- A regisztrációnál nem lehet ugyanolyan email címmel regisztrálni, de ugyanolyan névvel igen.
 - Az authorizáció rendben működik. Nem lehet anélkül a védett oldalakat elérni.
 - Új feladat/esemény létrehozásakor adatok nélkül is lehet elmenteni feladatot.
   * Új feladatkor nem létező címkével is lehet menteni feladatot.
@@ -59,6 +59,6 @@ Az összesítésből kiderül, hogy a bejelentkezés, regisztráció megfelelőe
 
 ### Bugok:
 
-* Létre lehet hozni osztály adat nélkül is.
-* Csak azokat az osztályokat lehet módosítani, lekérdezni, törölni, amiknek nem null az UserId-ja.
-* Létre lehet hozni új feladatot/eseményt adat nélkül.
+* Létre lehet hozni osztályt adat nélkül is.
+* Csak azokat az osztályokat lehet módosítani, lekérdezni, törölni, amiknek nem null a UserId-ja.
+* Létre lehet hozni új feladatot/eseményt adatok nélkül.
