@@ -33,7 +33,7 @@ namespace web_api_tests.FakeRepositories
 
         public async Task<string> DeleteIssue(string userID, string id)
         {
-            var toRemove = issues.FirstOrDefault(item => item.ID == id);
+            var toRemove = issues.FirstOrDefault(item => item.ID == id && item.userID == userID);
             issues.Remove(toRemove);
             return id;
         }
@@ -80,7 +80,7 @@ namespace web_api_tests.FakeRepositories
 
         public async Task<ClientIssue> UpdateIssue(string userID, ClientIssue client)
         {
-            Issue issue = issues.FirstOrDefault(i => i.ID == client.ID);
+            Issue issue = issues.FirstOrDefault(i => i.ID == client.ID && i.userID == userID);
 
             if (issue == null)
             { 
