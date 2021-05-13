@@ -41,7 +41,7 @@ Valamint fény derült arra is, hogy az IssueRepository esetén a felhasználói ID c
 listázó mûveleteknél van figyelembe véve.
 Ez biztonsági szempontból nem a legjobb, hiszen ha nincs ID ellenõrzés egy törlési mûveletben,
 akkor amennyiben bárki ismeri valamely erõforrásom azonosítóját képes lesz azt törölni.
-Végül ezt is sikerült kijavítanunk, így már ezen tesztek is sikeren lefutottak.
+Végül ezt is sikerült kijavítanunk, így már ezen tesztek is sikeresen lefutottak.
 
 ### Controllerek tesztlefedettsége
 
