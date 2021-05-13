@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using web_api_tests.FakeRepositories;
 using Xunit;
 using Deadline.Entities;
+using FluentAssertions;
 
 namespace web_api_tests
 {
@@ -36,8 +37,9 @@ namespace web_api_tests
         [Fact]
         public async void Add_AddsItem_ReturnsItem()
         {
-            // Act
+            // Arrange
             var toAdd = new Class() { ID = "10", color = "red", icon = "AUT", name = "onlab", userID = "0" };
+            // Act
             var result = await controller.AddClass(toAdd);
 
             // Assert
@@ -48,9 +50,11 @@ namespace web_api_tests
         [Fact]
         public async void Add_AddsItem_ListExpands()
         {
-            // Act
+            // Arrange
             var lengthBefore = repository.GetClasses("0").Result.Count;
             var toAdd = new Class() { ID = "10", color = "red", icon = "AUT", name = "onlab", userID = "0" };
+
+            // Act
             await controller.AddClass(toAdd);
 
             // Assert
@@ -61,7 +65,7 @@ namespace web_api_tests
         [Fact]
         public async void Add_WithUserThatDoesntExist_ShouldThrowErrorl()
         {
-            // Act
+            // Arrange
             var toAdd = new Class() { ID = "10", color = "red", icon = "AUT", name = "onlab", userID = "120" };
 
 
@@ -69,24 +73,28 @@ namespace web_api_tests
             await Assert.ThrowsAsync<ArgumentException>(async () => await controller.AddClass(toAdd));
         }
 
-        // this equal is bugged if we use the whole object, they are the same and still it fails
+
         [Fact]
         public async void Delete_Deletes_Existing_AndReturnsDeleted()
         {
-            // Act
+            // Arrange
             var toRemove = new Class() { ID = "1", color = "green", icon = "important", name = "iet", userID = "0" };
+
+            // Act
             var result = await controller.DeleteClass(toRemove.ID);
 
             // Assert
-            Assert.Equal(toRemove.ID, result.Value.ID);
+            result.Value.Should().BeEquivalentTo(toRemove);
         }
 
         [Fact]
         public async void Delete_Removes_Item()
         {
-            // Act
+            // Arrange
             var toRemove = new Class() { ID = "1", color = "green", icon = "important", name = "iet", userID = "0" };
             var lengthBefore = controller.GetClasses().Result.Value.Count;
+
+            // Act
             await controller.DeleteClass(toRemove.ID);
 
             // Assert
@@ -98,11 +106,13 @@ namespace web_api_tests
         [Fact]
         public async void Delete_With_Non_Existing_User_DoesntRemove()
         {
-            // Act
+            // Arrange
             controller.ControllerContext.HttpContext.Items.Remove("UserID");
             controller.ControllerContext.HttpContext.Items.Add("UserID", "10");
             var toRemove = new Class() { ID = "1", color = "green", icon = "important", name = "iet", userID = "0" };
             var lengthBefore = controller.GetClasses().Result.Value.Count;
+
+            // Act
             await controller.DeleteClass(toRemove.ID);
 
             // Assert
@@ -113,11 +123,12 @@ namespace web_api_tests
         [Fact]
         public async void Delete_With_Non_Existing_User_ReturnsNull()
         {
-            // Act
+            // Arrange
             controller.ControllerContext.HttpContext.Items.Remove("UserID");
             controller.ControllerContext.HttpContext.Items.Add("UserID", "10");
             var toRemove = new Class() { ID = "1", color = "green", icon = "important", name = "iet", userID = "0" };
             
+            // Act
             var result = await controller.DeleteClass(toRemove.ID);
 
             // Assert
@@ -127,9 +138,11 @@ namespace web_api_tests
         [Fact]
         public async void Delete_With_Non_Existing_Class_DoesntRemove()
         {
-            // Act
+            // Arrange
             var toRemove = new Class() { ID = "111", color = "green", icon = "important", name = "iet", userID = "0" };
             var lengthBefore = controller.GetClasses().Result.Value.Count;
+
+            // Act
             await controller.DeleteClass(toRemove.ID);
 
             // Assert
@@ -140,45 +153,47 @@ namespace web_api_tests
         [Fact]
         public async void Delete_With_Non_Existing_Class_ReturnNull()
         {
-            // Act
+            // Arrange
             var toRemove = new Class() { ID = "1111", color = "green", icon = "important", name = "iet", userID = "0" };
+
+            // Act
             var result = await controller.DeleteClass(toRemove.ID);
 
             // Assert
             Assert.Null(result.Value);
         }
 
-        // this works as well but buggy if we use the whole object because of shallow copying?
         [Fact]
         public async void GetClass_ReturnsClass()
         {
-            // Act
+            // Arrange
             var toGet = new Class() { ID = "1", color = "green", icon = "important", name = "iet", userID = "0" };
+
+            // Act
             var result = await controller.GetClass("1");
 
             // Assert
-            Assert.Equal(toGet.ID, result.Value.ID);
+            result.Value.Should().BeEquivalentTo(toGet);
         }
 
         [Fact]
         public async void GetClass_WithWrongUser_ReturnsNull()
         {
-            // Act
+            // Arrange
             controller.ControllerContext.HttpContext.Items.Remove("UserID");
             controller.ControllerContext.HttpContext.Items.Add("UserID", "2");
 
+            // Act
             var result = await controller.GetClass("1");
 
             // Assert
             Assert.Null(result.Value);
-
         }
 
         [Fact]
         public async void GetClass_With_NonExistingClass_ReturnsNull()
         {
             // Act
-            
             var result = await controller.GetClass("1111");
 
             // Assert
@@ -190,11 +205,9 @@ namespace web_api_tests
         [Fact]
         public async void GetClass_WithNonExistingUser_ThrowsException()
         {
-            // Act
+            // Arrange
             controller.ControllerContext.HttpContext.Items.Remove("UserID");
-            controller.ControllerContext.HttpContext.Items.Add("UserID", "2");
-
-            var result = await controller.GetClass("1");
+            controller.ControllerContext.HttpContext.Items.Add("UserID", "22222");
 
             // Assert
             await Assert.ThrowsAsync<ArgumentException>(async () => await controller.GetClass("1"));
@@ -216,10 +229,11 @@ namespace web_api_tests
         [Fact]
         public async void GetClasses_WithUserThatHasNoClasses_ReturnsEmpty()
         {
-            // Act
+            // Arrange
             controller.ControllerContext.HttpContext.Items.Clear();
             controller.ControllerContext.HttpContext.Items.Add("UserID", "5");
 
+            // Act
             var result = await controller.GetClasses();
 
             // Assert
@@ -229,8 +243,10 @@ namespace web_api_tests
         [Fact]
         public async void Update_UpdatesItem()
         {
-            // Act
+            // Arrange
             var toUpdate = new Class() { ID = "1", color = "red", icon = "important", name = "iet", userID = "0" };
+
+            // Act
             var result = await controller.UpdateClass(toUpdate);
 
             // Assert
@@ -240,8 +256,10 @@ namespace web_api_tests
         [Fact]
         public async void Update_WithNonExistingItem_ReturnsNull()
         {
-            // Act
+            // Arrange
             var toUpdate = new Class() { ID = "111", color = "red", icon = "important", name = "iet", userID = "0" };
+
+            // Act
             var result = await controller.UpdateClass(toUpdate);
 
             // Assert
@@ -252,12 +270,12 @@ namespace web_api_tests
         [Fact]
         public async void Update_WithNonExistingUser_ThrowsException()
         {
-            // Act
+            // Arrange
             controller.ControllerContext.HttpContext.Items.Remove("UserID");
             controller.ControllerContext.HttpContext.Items.Add("UserID", "22");
 
             var toUpdate = new Class() { ID = "1", color = "red", icon = "important", name = "iet", userID = "0" };
-            var result = await controller.UpdateClass(toUpdate);
+
 
             // Assert
             await Assert.ThrowsAsync<ArgumentException>(async () => await controller.UpdateClass(toUpdate));
