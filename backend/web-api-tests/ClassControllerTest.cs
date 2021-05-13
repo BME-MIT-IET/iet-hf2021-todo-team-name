@@ -101,7 +101,7 @@ namespace web_api_tests
             await controller.DeleteClass(toRemove.ID);
 
             // Assert
-            var lengthAfter = controller.GetClasses().Result.Value.Count;
+            var lengthAfter = repository.GetClasses("0").Result.Count;
             Assert.Equal(lengthBefore - 1, lengthAfter);
 
         }
@@ -113,13 +113,13 @@ namespace web_api_tests
             controller.ControllerContext.HttpContext.Items.Remove("UserID");
             controller.ControllerContext.HttpContext.Items.Add("UserID", "10");
             var toRemove = new Class() { ID = "1", color = "green", icon = "important", name = "iet", userID = "0" };
-            var lengthBefore = controller.GetClasses().Result.Value.Count;
+            var lengthBefore = repository.GetClasses("0").Result.Count;
 
             // Act
             await controller.DeleteClass(toRemove.ID);
 
             // Assert
-            var lengthAfter = controller.GetClasses().Result.Value.Count;
+            var lengthAfter = repository.GetClasses("0").Result.Count;
             Assert.Equal(lengthBefore, lengthAfter);
         }
 
@@ -149,7 +149,7 @@ namespace web_api_tests
             await controller.DeleteClass(toRemove.ID);
 
             // Assert
-            var lengthAfter = controller.GetClasses().Result.Value.Count;
+            var lengthAfter = repository.GetClasses("0").Result.Count;
             Assert.Equal(lengthBefore, lengthAfter);
         }
 
