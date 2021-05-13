@@ -43,9 +43,11 @@ namespace web_api_tests
         [Fact]
         public async void GetColumns_ReturnsEmpty()
         {
-            // Act
+            // Arrange
             controller.ControllerContext.HttpContext.Items.Clear();
             controller.ControllerContext.HttpContext.Items.Add("UserID", "2222");
+
+            // Act
             var result = controller.GetColumns().Result.Value;
 
             // Assert
@@ -55,12 +57,14 @@ namespace web_api_tests
         [Fact]
         public async void AddIssue_WhenCalled_Returns()
         {
-            // Act
+            // Arrange
             var body = new ColumnController.NewIssueType()
             {
                 columnid = "0",
                 issueid = "0"
             };
+
+            // Act
             var result = controller.AddIssue(body);
 
             // Assert
@@ -70,13 +74,15 @@ namespace web_api_tests
         [Fact]
         public async void AddIssue_AddsItem()
         {
-            // Act
+            // Arrange
             var lengthBefore = controller.GetColumns().Result.Value.Count;
             var body = new ColumnController.NewIssueType()
             {
                 columnid = "0",
                 issueid = "0"
             };
+
+            // Act
             await controller.AddIssue(body);
             var lengthAfter = controller.GetColumns().Result.Value.Count;
 
@@ -87,13 +93,15 @@ namespace web_api_tests
         [Fact]
         public async void RemoveIssue_RemovesItem()
         {
-            // Act
+            // Arrange
             var lengthBefore = controller.GetColumns().Result.Value.Count;
             var body = new ColumnController.NewIssueType()
             {
                 columnid = "0",
                 issueid = "0"
             };
+
+            // Act
             await controller.AddIssue(body);
             await controller.RemoveIssue(body);
 
