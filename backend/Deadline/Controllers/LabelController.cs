@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Deadline.DB;
+using Deadline.DB.IRepositories;
 using Deadline.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,8 +12,8 @@ namespace Deadline.Controllers
     [ApiController]
     public class LabelController : ControllerBase
     {
-        private readonly LabelRepository lr;
-        public LabelController(LabelRepository lr)
+        private readonly ILabelRepository lr;
+        public LabelController(ILabelRepository lr)
         {
             this.lr = lr;
         }

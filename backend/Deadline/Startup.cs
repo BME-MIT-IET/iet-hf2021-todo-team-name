@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Deadline.DB;
+using Deadline.DB.IRepositories;
 using Deadline.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -42,13 +43,16 @@ namespace Deadline
                                       builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
                                   });
             });
+            
+            services.AddScoped<IColumnRepository, ColumnRepository>();
+            services.AddScoped<IClassRepository, ClassRepository>();
+            services.AddScoped<IIssueRepository, IssueRepository>();
+            services.AddScoped<ILabelRepository, LabelRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IWorkspaceRepository, WorkspaceRepository>();
+
             services.AddTransient<Database>();
-            services.AddTransient<ColumnRepository>();
-            services.AddTransient<IssueRepository>();
-            services.AddTransient<UserRepository>();
-            services.AddTransient<ClassRepository>();
-            services.AddTransient<LabelRepository>();
-            services.AddTransient<WorkspaceRepository>();
+
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value);
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
                 options =>

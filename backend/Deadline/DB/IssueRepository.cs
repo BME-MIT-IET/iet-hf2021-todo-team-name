@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Deadline.API;
+using Deadline.DB.IRepositories;
 using Deadline.Entities;
 using MongoDB.Driver;
 
 namespace Deadline.DB
 {
-    public class IssueRepository
+    public class IssueRepository : IIssueRepository
     {
         private readonly Database db;
         public IssueRepository(Database db) => this.db = db;
@@ -45,20 +44,33 @@ namespace Deadline.DB
         }
         public async Task<ClientIssue> UpdateIssue(string userID, ClientIssue client)
         {
-            Issue issue = client.Convert();
-            issue.userID = userID;
-            await db.Issues.ReplaceOneAsync(item => item.ID == issue.ID, issue);
-            return client;
+            Issue toEdit = await db.Issues.Find(item => item.ID == client.ID && item.userID == userID).FirstOrDefaultAsync();
+
+            if (toEdit == null)
+            {
+                return null;
+            }
+            else
+            {
+                Issue newIssue = client.Convert();
+                newIssue.userID = userID;
+
+                await db.Issues.ReplaceOneAsync(item => item.ID == newIssue.ID, newIssue);
+
+                return new ClientIssue(newIssue);
+            }
         }
         public async Task<ClientIssue> GetIssue(string userID, string id)
         {
             Issue issue = await db.Issues.Find(item => item.ID == id).FirstOrDefaultAsync();
-            ClientIssue client = new ClientIssue(issue);
-            return client;
+
+            if (issue == null) return null;
+
+            return new ClientIssue(issue);
         }
         public async Task<string> DeleteIssue(string userID, string id)
         {
-            var res = await db.Issues.DeleteOneAsync(item => item.ID == id);
+            var res = await db.Issues.DeleteOneAsync(item => item.ID == id && item.userID == userID);
             return id;
         }
         public async Task<List<ClientIssue>> Search(string userid, string query, CancellationToken cancellationToken = default(CancellationToken))

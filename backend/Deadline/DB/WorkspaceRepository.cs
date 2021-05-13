@@ -5,10 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using Deadline.API;
+using Deadline.DB.IRepositories;
 
 namespace Deadline.DB
 {
-    public class WorkspaceRepository
+    public class WorkspaceRepository : IWorkspaceRepository
     {
         private Database db;
         public WorkspaceRepository(Database db) => this.db = db;
